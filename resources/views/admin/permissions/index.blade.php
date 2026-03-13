@@ -3,7 +3,7 @@
 @section('title', 'Manajemen Permission')
 
 @section('content')
-    <div class="p-4 mx-auto max-w-screen-2xl md:p-6">
+    <div class="p-4 mx-auto max-w-screen-2xl md:p-6" x-data="{ showPermissionModal: false, editPermission: null }">
         <!-- Success Message -->
         @if (session('success'))
             <div
@@ -28,13 +28,13 @@
                     <h3 class="text-lg font-semibold text-gray-800 dark:text-white">Manajemen Permission</h3>
                     <p class="mt-1 text-sm text-gray-500 dark:text-gray-400">Kelola izin akses untuk setiap fitur sistem</p>
                 </div>
-                <a href="{{ route('admin.permissions.create') }}"
+                <button @click="showPermissionModal = true; editPermission = null"
                     class="inline-flex items-center gap-2 rounded-lg bg-blue-600 px-4 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900">
                     <svg class="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
                         <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
                     </svg>
                     Tambah Permission
-                </a>
+                </button>
             </div>
 
             <!-- Table -->
@@ -133,5 +133,8 @@
                 {{ $permissions->links() }}
             </div>
         @endif
+
+        <!-- Create Permission Modal -->
+        <x-permission-modal />
     </div>
 @endsection

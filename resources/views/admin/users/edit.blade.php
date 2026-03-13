@@ -1,102 +1,135 @@
 @extends('layouts.admin')
 
+@section('title', 'Edit User')
+
 @section('content')
-    <div class="p-6">
+    <div class="p-4 mx-auto max-w-screen-2xl md:p-6">
+        <!-- Page Header -->
         <div class="mb-6">
-            <h1 class="text-2xl font-bold text-gray-800">Edit User</h1>
-            <p class="text-gray-600 mt-1">Update user details and roles</p>
+            <div class="flex items-center justify-between">
+                <div>
+                    <h1 class="text-2xl font-bold text-gray-900 dark:text-white">Edit User</h1>
+                    <p class="mt-1 text-sm text-gray-600 dark:text-gray-400">Update user details and roles</p>
+                </div>
+                <a href="{{ route('admin.users.index') }}"
+                    class="inline-flex items-center gap-2 rounded-lg border border-gray-300 px-4 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800">
+                    <svg class="h-4 w-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                            d="M10 19l-7-7m0 0l7-7m-7 7h18" />
+                    </svg>
+                    Kembali
+                </a>
+            </div>
         </div>
 
-        <div class="bg-white rounded-lg shadow p-6 max-w-2xl">
-            <form action="{{ route('admin.users.update', $user) }}" method="POST">
+        <!-- Form Card -->
+        <div class="overflow-hidden rounded-2xl border border-gray-200 bg-white dark:border-gray-800 dark:bg-white/[0.03]">
+            <form action="{{ route('admin.users.update', $user) }}" method="POST" class="p-6 md:p-8">
                 @csrf
                 @method('PUT')
 
-                <div class="mb-4">
-                    <label for="name" class="block text-sm font-medium text-gray-700 mb-2">
-                        Nama Lengkap <span class="text-red-500">*</span>
-                    </label>
-                    <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('name') border-red-500 @enderror"
-                        required>
-                    @error('name')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
+                <div class="grid gap-6 md:grid-cols-2">
+                    <!-- Name -->
+                    <div>
+                        <label for="name" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Nama Lengkap <span class="text-red-500">*</span>
+                        </label>
+                        <input type="text" name="name" id="name" value="{{ old('name', $user->name) }}"
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white @error('name') border-red-500 @enderror"
+                            required>
+                        @error('name')
+                            <p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Email -->
+                    <div>
+                        <label for="email" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Email <span class="text-red-500">*</span>
+                        </label>
+                        <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white @error('email') border-red-500 @enderror"
+                            required>
+                        @error('email')
+                            <p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
                 </div>
 
-                <div class="mb-4">
-                    <label for="email" class="block text-sm font-medium text-gray-700 mb-2">
-                        Email <span class="text-red-500">*</span>
-                    </label>
-                    <input type="email" name="email" id="email" value="{{ old('email', $user->email) }}"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('email') border-red-500 @enderror"
-                        required>
-                    @error('email')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
+                <!-- Password Update Info -->
+                <div
+                    class="mt-6 p-4 bg-yellow-50 border border-yellow-200 rounded-xl dark:bg-yellow-900/10 dark:border-yellow-800">
+                    <p class="text-sm text-yellow-800 dark:text-yellow-400 font-medium mb-1">Update Password (Optional)</p>
+                    <p class="text-xs text-yellow-700 dark:text-yellow-500">Leave blank to keep current password</p>
                 </div>
 
-                <div class="mb-4 p-4 bg-yellow-50 border border-yellow-200 rounded-lg">
-                    <p class="text-sm text-yellow-800 font-medium mb-2">Update Password (Optional)</p>
-                    <p class="text-xs text-yellow-700">Leave blank to keep current password</p>
+                <div class="grid gap-6 md:grid-cols-2 mt-6">
+                    <!-- Password -->
+                    <div>
+                        <label for="password" class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Password Baru
+                        </label>
+                        <input type="password" name="password" id="password"
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white @error('password') border-red-500 @enderror"
+                            placeholder="Minimal 8 karakter (kosongkan jika tidak diubah)">
+                        @error('password')
+                            <p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
+                        @enderror
+                    </div>
+
+                    <!-- Password Confirmation -->
+                    <div>
+                        <label for="password_confirmation"
+                            class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-2">
+                            Konfirmasi Password Baru
+                        </label>
+                        <input type="password" name="password_confirmation" id="password_confirmation"
+                            class="w-full rounded-lg border border-gray-300 px-4 py-2.5 text-sm focus:border-blue-500 focus:ring-2 focus:ring-blue-500/20 dark:border-gray-700 dark:bg-gray-800 dark:text-white"
+                            placeholder="Ulangi password baru">
+                    </div>
                 </div>
 
-                <div class="mb-4">
-                    <label for="password" class="block text-sm font-medium text-gray-700 mb-2">
-                        Password Baru
-                    </label>
-                    <input type="password" name="password" id="password"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent @error('password') border-red-500 @enderror"
-                        placeholder="Minimal 8 karakter (kosongkan jika tidak diubah)">
-                    @error('password')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
-                    @enderror
-                </div>
-
-                <div class="mb-6">
-                    <label for="password_confirmation" class="block text-sm font-medium text-gray-700 mb-2">
-                        Konfirmasi Password Baru
-                    </label>
-                    <input type="password" name="password_confirmation" id="password_confirmation"
-                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent"
-                        placeholder="Ulangi password baru">
-                </div>
-
-                <div class="mb-6">
-                    <label class="block text-sm font-medium text-gray-700 mb-3">
+                <!-- Roles Section (Full Width) -->
+                <div class="mt-6">
+                    <label class="block text-sm font-medium text-gray-700 dark:text-gray-300 mb-3">
                         Roles
                     </label>
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-3 p-4 border border-gray-200 rounded-lg">
+                    <div
+                        class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-3 p-5 border border-gray-200 rounded-xl dark:border-gray-700">
                         @forelse ($roles as $role)
-                            <label class="flex items-center space-x-2 p-2 hover:bg-gray-50 rounded cursor-pointer">
+                            <label
+                                class="flex items-start space-x-3 p-3 hover:bg-gray-50 dark:hover:bg-gray-800 rounded-lg cursor-pointer transition">
                                 <input type="checkbox" name="roles[]" value="{{ $role->id }}"
                                     {{ in_array($role->id, old('roles', $userRoles)) ? 'checked' : '' }}
-                                    class="rounded border-gray-300 text-blue-600 focus:ring-blue-500">
-                                <div>
-                                    <span class="text-sm font-medium text-gray-700">
+                                    class="mt-0.5 rounded border-gray-300 text-blue-600 focus:ring-blue-500 dark:border-gray-600 dark:bg-gray-700">
+                                <div class="flex-1">
+                                    <span class="text-sm font-medium text-gray-900 dark:text-white">
                                         {{ $role->display_name ?? $role->name }}
                                     </span>
                                     @if ($role->description)
-                                        <p class="text-xs text-gray-500">{{ $role->description }}</p>
+                                        <p class="text-xs text-gray-500 dark:text-gray-400 mt-0.5">{{ $role->description }}
+                                        </p>
                                     @endif
                                 </div>
                             </label>
                         @empty
-                            <p class="text-gray-500 col-span-2">No roles available.</p>
+                            <p class="text-sm text-gray-500 dark:text-gray-400 col-span-full py-4 text-center">No roles
+                                available.</p>
                         @endforelse
                     </div>
                     @error('roles')
-                        <p class="mt-1 text-sm text-red-600">{{ $message }}</p>
+                        <p class="mt-1.5 text-sm text-red-600 dark:text-red-400">{{ $message }}</p>
                     @enderror
                 </div>
 
-                <div class="flex items-center justify-between">
+                <!-- Actions -->
+                <div class="mt-8 flex items-center justify-end gap-3 border-t border-gray-100 pt-6 dark:border-gray-800">
                     <a href="{{ route('admin.users.index') }}"
-                        class="px-4 py-2 border border-gray-300 rounded-lg text-gray-700 hover:bg-gray-50 transition-colors">
+                        class="rounded-lg border border-gray-300 px-5 py-2.5 text-sm font-semibold text-gray-700 hover:bg-gray-50 dark:border-gray-700 dark:text-gray-300 dark:hover:bg-gray-800">
                         Batal
                     </a>
                     <button type="submit"
-                        class="px-6 py-2 bg-blue-600 text-white rounded-lg hover:bg-blue-700 transition-colors">
+                        class="rounded-lg bg-blue-600 px-6 py-2.5 text-sm font-semibold text-white hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 focus:ring-offset-2 dark:focus:ring-offset-gray-900">
                         Update User
                     </button>
                 </div>
