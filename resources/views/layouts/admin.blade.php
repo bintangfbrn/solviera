@@ -109,6 +109,26 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                         <li class="px-3 py-2 pt-4">
                             <p class="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider"
                                 :class="sidebarToggle ? 'lg:hidden' : ''">
+                                Konten Website
+                            </p>
+                        </li>
+
+                        <!-- Pages CMS -->
+                        <li>
+                            <a href="{{ route('admin.pages.index') }}"
+                                class="group relative flex items-center gap-3 rounded-lg px-3 py-2.5 font-medium duration-200 ease-in-out {{ request()->routeIs('admin.pages.*') ? 'bg-blue-50 text-blue-600 dark:bg-white/5 dark:text-white' : 'text-gray-600 hover:bg-gray-50 dark:text-gray-300 dark:hover:bg-white/5' }}">
+                                <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                                </svg>
+                                <span :class="sidebarToggle ? 'lg:hidden' : ''">Halaman CMS</span>
+                            </a>
+                        </li>
+
+                        <!-- Divider -->
+                        <li class="px-3 py-2 pt-4">
+                            <p class="text-xs font-semibold text-gray-400 dark:text-gray-600 uppercase tracking-wider"
+                                :class="sidebarToggle ? 'lg:hidden' : ''">
                                 Settings
                             </p>
                         </li>
@@ -164,7 +184,8 @@ $watch('darkMode', value => localStorage.setItem('darkMode', JSON.stringify(valu
                             :class="sidebarToggle ? 'lg:bg-transparent dark:lg:bg-transparent bg-gray-100 dark:bg-gray-800' : ''"
                             class="z-99999 flex h-10 w-10 items-center justify-center rounded-lg border border-gray-200 text-gray-500 lg:h-11 lg:w-11 dark:border-gray-800 dark:text-gray-400"
                             @click.stop="sidebarToggle = !sidebarToggle">
-                            <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24" fill="none">
+                            <svg class="fill-current" width="24" height="24" viewBox="0 0 24 24"
+                                fill="none">
                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                     d="M3.25 6C3.25 5.58579 3.58579 5.25 4 5.25L20 5.25C20.4142 5.25 20.75 5.58579 20.75 6C20.75 6.41421 20.4142 6.75 20 6.75L4 6.75C3.58579 6.75 3.25 6.41422 3.25 6ZM3.25 18C3.25 17.5858 3.58579 17.25 4 17.25L20 17.25C20.4142 17.25 20.75 17.5858 20.75 18C20.75 18.4142 20.4142 18.75 20 18.75L4 18.75C3.58579 18.75 3.25 18.4142 3.25 18ZM4 11.25C3.58579 11.25 3.25 11.5858 3.25 12C3.25 12.4142 3.58579 12.75 4 12.75L12 12.75C12.4142 12.75 12.75 12.4142 12.75 12C12.75 11.5858 12.4142 11.25 12 11.25L4 11.25Z" />
                             </svg>
